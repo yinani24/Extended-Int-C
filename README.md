@@ -72,6 +72,8 @@ There are only five types of commands:
 - `CMP` has two operands in the next line: `op1`, `op2`, seperated by a space. Both operands are indices. You should take `op1` and `op2` from the array, compare them. Print -1 if `op1` is less than `op1`, 0 if equal, 1 if greater.
 - Any other inputs should be considered illegal and the program should terminate immediately. 
 
+All numbers are `uint64_t` typed, i.e. some of the constants can be really large.
+
 ## File description
 
 `APInt.h` defines the struct. You should not change the struct definition. However, you are free to change/add the functions as you wish.
