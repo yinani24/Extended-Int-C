@@ -43,6 +43,8 @@ In this homework, you would need to implement a few common methods we need for `
 - Common operations:
   - Add between two `APInt`.
   - Left shift of an `APInt`.
+  - Multiplication `APInt` with `uint64_t` or `APInt`.
+  - Power
   - Comparasion between two `APInt`s.
 - Destructor
 - Printing method.
@@ -68,7 +70,7 @@ There are only five types of commands:
 - `MUL_UINT64` has three operands in the next line: `dst`, `src`, `k`, seperated by a space. You should calculate `src * k`, and store it back to `dst`-th place in the array. `k` is `uint64_t`.
 - `MUL_APINT` has three operands in the next line: `dst`, `op1`, `op2`, seperated by a space. All three operands are indices. You should take `op1` and `op2` from the array, multiply them and place the result back to `dst`.
 - `POW` has three operands in the next line: `dst`, `src`, `k`, seperated by a space. You should take `src`-th `APInt` in the array, calculate `src ^ k`, and store it back to `dst`-th place in the array. `k` is `uint64_t`.
-  - Hint: This task has performance requirements. `O(k)` solution is so intuitive, can you think of a `O(log k)` one?
+  - Hint: This task has performance requirements. `O(k)` solution is intuitive, can you think of an `O(log k)` one?
 - `CMP` has two operands in the next line: `op1`, `op2`, seperated by a space. Both operands are indices. You should take `op1` and `op2` from the array, compare them. Print -1 if `op1` is less than `op1`, 0 if equal, 1 if greater.
 - Any other inputs should be considered illegal and the program should terminate immediately. 
 
