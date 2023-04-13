@@ -78,10 +78,10 @@ All numbers are `uint64_t` typed, i.e. some of the constants can be really large
 
 ## File description
 
-`APInt.h` defines the struct. You should not change the struct definition. However, you are free to change/add the functions as you wish.
-`APInt.c` should be used to implement the methods.
-`main.c` should carry out the read and write, including processing commands.
-`CMakeLists.txt` specifies how you build the project. You don't need to worry about it as it is already finished. You can build with `cmake <path-to-your-projec>`. You can also `cmake <path-to-your-projec> -DCMAKE_BUILD_TYPE=asan` to enable [Address sanitizer](https://github.com/google/sanitizers/wiki/AddressSanitizer), which checks for memory usages. Your will be graded with `ASan` turned on.
+- `APInt.h` defines the struct. You should not change the struct definition. However, you are free to change/add the functions as you wish.
+- `APInt.c` should be used to implement the methods.
+- `main.c` should carry out the read and write, including processing commands.
+- `CMakeLists.txt` specifies how you build the project. You don't need to worry about it as it is already finished. You can build with `cmake <path-to-your-projec>`. You can also `cmake <path-to-your-projec> -DCMAKE_BUILD_TYPE=asan` to enable [Address sanitizer](https://github.com/google/sanitizers/wiki/AddressSanitizer), which checks for memory usages. Your will be graded with `ASan` turned on.
 
 ## Build and submission guide
 
