@@ -33,3 +33,4 @@ add_library(APInt SHARED
 )
 
 target_link_libraries(Main APInt)
+set_property(TARGET Main APInt PROPERTY C_STANDARD 99)
