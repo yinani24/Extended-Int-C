@@ -2,6 +2,7 @@
 HEX_STRING
 abcd
 CLONE
+0
 DUMP
 ADD
 1 0 1
