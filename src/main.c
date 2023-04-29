@@ -28,14 +28,14 @@ int main(int argc, char const *argv[]) {
   char * line = NULL;
   size_t len = 0;
 
-  freopen(argv[2], "w", stdout);
+  // freopen(argv[2], "w", stdout);
 
   // if(dup2(output, STDOUT_FILENO) == -1){
   //   perror("Bad Dup2");
   // }
 
   if(getline(&number, &len, input) != -1){
-    number[strcspn(number, "\n")] = '\0';
+    number[strcspn(number, "\r\n")] = '\0';
   }
 
   int num = atoi(number);

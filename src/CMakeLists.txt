@@ -14,7 +14,7 @@ set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE}
     FORCE)
 # AddressSanitize
 set(CMAKE_C_FLAGS_ASAN
-    "-fsanitize=address -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O1 -Wall -Wextra -Wpedantic -Werror"
+    "-fsanitize=address -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O0 -Wall -Wextra -Wpedantic -Werror"
     CACHE STRING "Flags used by the C compiler during AddressSanitizer builds."
     FORCE)
 set(CMAKE_CXX_FLAGS_ASAN
