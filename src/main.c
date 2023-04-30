@@ -136,7 +136,7 @@ int main(int argc, char const *argv[]) {
       // return 2;
     }
   }
-  printf("\n");
+  printf("\n\n");
   free(line);
   // Close the files we opened.
   if (outputGiven)
