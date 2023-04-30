@@ -281,6 +281,10 @@ void dump(APInt * arr, int num_size){
             for(int j = arr[i].size - 1; j >= 0; j--){
                 uint32_t x = arr[i].bytes[j];
                 
+                if(arr[i].bytes[j] == 0){
+                    printf("0x%02x", arr[i].bytes[j]);
+                }
+
                 if(j == (int) arr[i].size - 1){
                     int count = 0;
                     

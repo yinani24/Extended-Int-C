@@ -150,3 +150,5 @@ int main(int argc, char const *argv[]) {
 // change fgets to getline
 // use memmove for left shifting only does it by bytes
 // bytes can pass all the test cases as
+
+//r ../input/0.txt ../test.txt
