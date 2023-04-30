@@ -299,7 +299,7 @@ void dump(APInt * arr, int num_size){
                 else{
                     
                     for(int k = 0; k < 4; k++){
-                        printf("Hello");
+                        //printf("Hello");
                         uint8_t hello = (x >> (32-8*(k+1))) & 0xff;
                         printf("%02x", hello);
                     }
