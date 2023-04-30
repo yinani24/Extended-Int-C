@@ -28,7 +28,7 @@ int main(int argc, char const *argv[]) {
   char * line = NULL;
   size_t len = 0;
 
-  // freopen(argv[2], "w", stdout);
+  //freopen(argv[2], "w", stdout);
 
   // if(dup2(output, STDOUT_FILENO) == -1){
   //   perror("Bad Dup2");
@@ -51,7 +51,7 @@ int main(int argc, char const *argv[]) {
   int k = 0;
   while(getline(&line, &len, input) != -1){
     
-    line[strcspn(line, "\n")] = '\0';
+    line[strcspn(line, "\r\n")] = '\0';
     
     if(strcmp(line, "END") == 0){
       for(int i = 0; i < num; i++){
@@ -64,7 +64,7 @@ int main(int argc, char const *argv[]) {
     }
     else if(strcmp(line, "UINT64") == 0){
       if(getline(&line, &len, input) != -1){
-        line[strcspn(line, "\n")] = '\0';
+        line[strcspn(line, "\r\n")] = '\0';
         uint64_t in64 = strtoull(line,NULL,10);
         conversion_from_uint64(&sub[k], in64);
         k++;
@@ -72,14 +72,14 @@ int main(int argc, char const *argv[]) {
     }
     else if(strcmp(line, "HEX_STRING") == 0){
       if(getline(&line, &len, input) != -1){
-        line[strcspn(line, "\n")] = '\0';
+        line[strcspn(line, "\r\n")] = '\0';
         conversion_hexstring_APInt(&sub[k], line);
         k++;
       }
     }
     else if(strcmp(line, "CLONE") == 0){  
       if(getline(&line, &len, input) != -1){
-        line[strcspn(line, "\n")] = '\0';
+        line[strcspn(line, "\r\n")] = '\0';
         int f = atoi(line);
         clone(&sub[k], &sub[f]);
         k++;
@@ -87,7 +87,7 @@ int main(int argc, char const *argv[]) {
     }
     else if(strcmp(line, "ADD") == 0){
       if(getline(&line, &len, input) != -1){
-        line[strcspn(line, "\n")] = '\0';
+        line[strcspn(line, "\r\n")] = '\0';
         int temp_arr[3];
         int temp = 0;
         char *token = strtok(line, " ");
@@ -101,7 +101,7 @@ int main(int argc, char const *argv[]) {
     }
     else if(strcmp(line, "SHL") == 0){
       if(getline(&line, &len, input) != -1){
-        line[strcspn(line, "\n")] = '\0';
+        line[strcspn(line, "\r\n")] = '\0';
         uint64_t temp_arr[3];
         int temp = 0;
         char *token = strtok(line, " ");
@@ -111,6 +111,20 @@ int main(int argc, char const *argv[]) {
             temp++;
         }
         SHL(&sub[temp_arr[0]], &sub[temp_arr[1]], temp_arr[2]);
+      } 
+    }
+    else if(strcmp(line, "CMP") == 0){
+      if(getline(&line, &len, input) != -1){
+        line[strcspn(line, "\r\n")] = '\0';
+        uint64_t temp_arr[2];
+        int temp = 0;
+        char *token = strtok(line, " ");
+        while(token != NULL) {
+            temp_arr[temp] = strtoull(token, NULL, 10);
+            token = strtok(NULL, " ");
+            temp++;
+        }
+        cmp(&sub[temp_arr[0]], &sub[temp_arr[1]]);
       } 
     }
     else{

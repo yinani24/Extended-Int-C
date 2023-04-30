@@ -18,5 +18,6 @@ void conversion_hexstring_APInt(APInt * ap, char * s);
 void ADD(APInt * dest, APInt * src1, APInt * src2);
 void dump(APInt * arr, int num_size);
 void SHL(APInt * dst, APInt * src, uint64_t k);
+void cmp(APInt * op1, APInt * op2);
 
 #endif
