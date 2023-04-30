@@ -28,7 +28,7 @@ int main(int argc, char const *argv[]) {
   char * line = NULL;
   size_t len = 0;
 
-  //freopen(argv[2], "w", stdout);
+  freopen(argv[2], "w", stdout);
 
   // if(dup2(output, STDOUT_FILENO) == -1){
   //   perror("Bad Dup2");
