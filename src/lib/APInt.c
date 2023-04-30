@@ -266,6 +266,7 @@ void destroy_APInt(APInt * ap){
     //printf("APSize: %d\n", ap->size);
     if(ap->size != 0){
         free(ap->bytes);
+        ap->size = 0;
     }
 }
 
@@ -274,12 +275,15 @@ void dump(APInt * arr, int num_size){
     // change the dump function completely
     for(int i = 0; i < num_size; i++){
         if(arr[i].size){
-
+            
+            //out_count = 0;
+            
             for(int j = arr[i].size - 1; j >= 0; j--){
                 uint32_t x = arr[i].bytes[j];
                 
                 if(j == (int) arr[i].size - 1){
                     int count = 0;
+                    
                     for(int k = 0; k < 4; k++){
                         uint8_t hello = (x >> (32-8*(k+1))) & 0xff;
                         if(hello != 0 && count == 0){
@@ -289,15 +293,20 @@ void dump(APInt * arr, int num_size){
                         else if(count == 1){
                             printf("%02x", hello);
                         }
-                    }                        
+                    }
+
                 }
                 else{
+                    
                     for(int k = 0; k < 4; k++){
+                        printf("Hello");
                         uint8_t hello = (x >> (32-8*(k+1))) & 0xff;
                         printf("%02x", hello);
                     }
+
                 }
             }
+            
             printf("\n");
         }
     }
