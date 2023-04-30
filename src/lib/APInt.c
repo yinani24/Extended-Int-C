@@ -274,14 +274,14 @@ void destroy_APInt(APInt * ap){
 void dump(APInt * arr, int num_size){
     // change the dump function completely
     for(int i = 0; i < num_size; i++){
-        if(arr[i].size){
+        //if(arr[i].size){
             
             //out_count = 0;
             
             for(int j = arr[i].size - 1; j >= 0; j--){
                 uint32_t x = arr[i].bytes[j];
                 
-                if(arr[i].bytes[j] == 0){
+                if(arr[i].bytes[j] == 0 && j == (int) arr[i].size - 1){
                     printf("0x%02x", arr[i].bytes[j]);
                 }
 
@@ -312,7 +312,7 @@ void dump(APInt * arr, int num_size){
             }
             
             printf("\n");
-        }
+        //}
     }
     //printf("\n");
 }
