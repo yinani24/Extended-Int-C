@@ -61,6 +61,7 @@ int main(int argc, char const *argv[]) {
     }
     else if(strcmp(line, "DUMP") == 0){
       dump(sub, num);
+      printf("\n");
     }
     else if(strcmp(line, "UINT64") == 0){
       if(getline(&line, &len, input) != -1){
@@ -136,7 +137,7 @@ int main(int argc, char const *argv[]) {
       // return 2;
     }
   }
-  printf("\n\n");
+ 
   free(line);
   // Close the files we opened.
   if (outputGiven)
