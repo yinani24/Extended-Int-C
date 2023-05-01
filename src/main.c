@@ -134,7 +134,7 @@ int main(int argc, char const *argv[]) {
       }
       break;
       // free(line);
-      // return 2;
+      return 0;
     }
   }
  
