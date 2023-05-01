@@ -314,7 +314,7 @@ void dump(APInt * arr, int num_size){
             printf("\n");
         }
     }
-    printf("\n");
+    //printf("\n");
 }
 
 // ask about carryover is 1 or not in addition
