@@ -114,6 +114,34 @@ int main(int argc, char const *argv[]) {
         SHL(&sub[temp_arr[0]], &sub[temp_arr[1]], temp_arr[2]);
       } 
     }
+    else if(strcmp(line, "MUL_UINT64") == 0){
+      if(getline(&line, &len, input) != -1){
+        line[strcspn(line, "\r\n")] = '\0';
+        uint64_t temp_arr[3];
+        int temp = 0;
+        char *token = strtok(line, " ");
+        while(token != NULL) {
+            temp_arr[temp] = strtoull(token, NULL, 10);
+            token = strtok(NULL, " ");
+            temp++;
+        }
+        mul_uint64(&sub[temp_arr[0]], &sub[temp_arr[1]], temp_arr[2]);
+      } 
+    }
+    else if(strcmp(line, "MUL_APINT") == 0){
+      if(getline(&line, &len, input) != -1){
+        line[strcspn(line, "\r\n")] = '\0';
+        int temp_arr[3];
+        int temp = 0;
+        char *token = strtok(line, " ");
+        while(token != NULL) {
+            temp_arr[temp] = atoi(token);
+            token = strtok(NULL, " ");
+            temp++;
+        }
+        mul_APInt(&sub[temp_arr[0]], &sub[temp_arr[1]], &sub[temp_arr[2]]);
+      } 
+    }
     else if(strcmp(line, "CMP") == 0){
       if(getline(&line, &len, input) != -1){
         line[strcspn(line, "\r\n")] = '\0';

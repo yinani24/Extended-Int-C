@@ -109,7 +109,7 @@ void ADD(APInt * dest, APInt * src1, APInt * src2){
         uint32_t temp_carry = carryover(store_src1.bytes[i],store_src2.bytes[i], carry);
         uint32_t up;
         if(temp_carry){
-            uint64_t bekh = (store_src1.bytes[i]) + (store_src2.bytes[i]) + carry;
+            uint64_t bekh = (uint64_t) (store_src1.bytes[i]) + (uint64_t) (store_src2.bytes[i]) + (uint64_t) carry;
             up = (bekh) & 0xFFFFFFFF;
         }
         else{
@@ -124,7 +124,7 @@ void ADD(APInt * dest, APInt * src1, APInt * src2){
             uint32_t temp_carry = carryover(store_src2.bytes[i], 0, carry);
             uint32_t up;
             if(temp_carry){
-                uint64_t bekh = (store_src2.bytes[i]) + carry;
+                uint64_t bekh = (uint64_t) (store_src2.bytes[i]) + carry;
                 up = (bekh) & 0xFFFFFFFF;
             }
             else{
@@ -137,7 +137,7 @@ void ADD(APInt * dest, APInt * src1, APInt * src2){
             uint32_t temp_carry = carryover(store_src1.bytes[i], 0, carry);
             uint32_t up;
             if(temp_carry){
-                uint64_t bekh = (store_src1.bytes[i]) + carry;
+                uint64_t bekh = (uint64_t) (store_src1.bytes[i]) + carry;
                 up = (bekh) & 0xFFFFFFFF;
             }
             else{
@@ -229,13 +229,24 @@ void SHL(APInt * dst, APInt * src, uint64_t k){
     uint32_t temp_store_arr[src->size + 1];
     uint32_t store, temp;
 
+    // for(uint64_t i = 0; i < src->size; i++){
+    //     store = store_src.bytes[i];
+    //     temp = store_src.bytes[i];
+    //     uint32_t result = store >> (32 - k);
+    //     temp <<= k;
+    //     temp |= rev;
+    //     rev = result;
+    //     temp_store_arr[i] = temp;
+    //     track++;
+    // }
+
     for(uint64_t i = 0; i < src->size; i++){
         store = store_src.bytes[i];
         temp = store_src.bytes[i];
-        uint32_t result = store >> (32 - k);
+        uint64_t result = (uint64_t) store >> (32 - k);
         temp <<= k;
         temp |= rev;
-        rev = result;
+        rev = (uint32_t) result;
         temp_store_arr[i] = temp;
         track++;
     }
@@ -258,9 +269,132 @@ void SHL(APInt * dst, APInt * src, uint64_t k){
     }
 }
 
-// void mul_uint64(APInt * ){
+void mul_uint64(APInt * dst, APInt * src, uint64_t k){
+    
+    APInt store_src, converted;
+    store_src.size = src->size;
+    
+    store_src.bytes = malloc(store_src.size * sizeof(uint32_t));
+    
+    for(uint64_t i = 0; i < store_src.size; i++){
+        store_src.bytes[i] = src->bytes[i];
+    }
 
-// }
+    if(dst->size){
+        free(dst->bytes);
+    }
+
+    conversion_from_uint64(&converted, k);
+
+    APInt arr[converted.size * store_src.size];
+    APInt result;
+
+    result.size = 1;
+    result.bytes = malloc(result.size * sizeof(uint32_t));
+    result.bytes[0] = 0;
+
+    int f = 0;
+
+    for(int i = 0; i < (int) store_src.size; i++){
+        for(int j = 0; j < (int) converted.size; j++){
+            uint64_t bekh = (uint64_t) store_src.bytes[i] * (uint64_t) converted.bytes[j];
+            conversion_from_uint64(&arr[f], bekh);
+            SHL(&arr[f], &arr[f], (i+j)*32);
+            ADD(&result, &result, &arr[f]);
+            f++;
+        }
+    }
+
+    dst->size = result.size;
+    dst->bytes = malloc(dst->size * sizeof(uint32_t));
+
+    for(int i = 0; i < (int) result.size; i++){
+        dst->bytes[i] = result.bytes[i];     
+    }
+
+    if(result.size){
+        free(result.bytes);
+    }
+
+    if(store_src.size){
+        free(store_src.bytes);
+    }
+
+    if(converted.size){
+        free(converted.bytes);
+    }
+
+    for(int i = 0 ; i < (int) (converted.size * store_src.size); i++){
+        free(arr[i].bytes);
+    }
+}
+
+void mul_APInt(APInt * dest, APInt * src1, APInt * src2){
+    
+    APInt store_src1, store_src2;
+    store_src1.size = src1->size;
+    store_src2.size = src2->size;
+    
+    store_src1.bytes = malloc(store_src1.size * sizeof(uint32_t));
+    store_src2.bytes = malloc(store_src2.size * sizeof(uint32_t));
+
+    for(uint64_t i = 0; i < store_src1.size; i++){
+        store_src1.bytes[i] = src1->bytes[i];
+    }
+
+    for(uint64_t i = 0; i < store_src2.size; i++){
+        store_src2.bytes[i] = src2->bytes[i];
+    }
+
+    if(dest->size){
+        free(dest->bytes);
+    }
+
+    //conversion_from_uint64(&converted, k);
+
+    APInt arr[store_src2.size * store_src1.size];
+    APInt result;
+
+    result.size = 1;
+    result.bytes = malloc(result.size * sizeof(uint32_t));
+    result.bytes[0] = 0;
+
+    int f = 0;
+
+    for(int i = 0; i < (int) store_src1.size; i++){
+        for(int j = 0; j < (int) store_src2.size; j++){
+            uint64_t bekh = (uint64_t) store_src1.bytes[i] * (uint64_t) store_src2.bytes[j];
+            conversion_from_uint64(&arr[f], bekh);
+            SHL(&arr[f], &arr[f], (i+j)*32);
+            ADD(&result, &result, &arr[f]);
+            f++;
+        }
+    }
+
+    dest->size = result.size;
+    dest->bytes = malloc(dest->size * sizeof(uint32_t));
+
+    for(int i = 0; i < (int) result.size; i++){
+        dest->bytes[i] = result.bytes[i];     
+    }
+
+    if(result.size){
+        free(result.bytes);
+    }
+
+    for(int i = 0 ; i < (int) (store_src2.size * store_src1.size); i++){
+        free(arr[i].bytes);
+    }
+    
+    if(store_src1.size){
+        free(store_src1.bytes);
+    }
+
+    if(store_src2.size){
+        free(store_src2.bytes);
+    }
+
+}
 
 void destroy_APInt(APInt * ap){
     //printf("APSize: %d\n", ap->size);
