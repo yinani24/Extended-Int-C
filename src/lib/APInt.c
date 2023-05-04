@@ -396,6 +396,48 @@ void mul_APInt(APInt * dest, APInt * src1, APInt * src2){
 
 }
 
+void power(APInt * dst, APInt * src, uint64_t k){
+    
+    APInt store_src, result;
+    store_src.size = src->size;
+    store_src.bytes = malloc(store_src.size * sizeof(uint32_t));
+
+    for(uint64_t i = 0; i < store_src.size; i++){
+        store_src.bytes[i] = src->bytes[i];
+    }
+
+    if(dst->size){
+        free(dst->bytes);
+    }
+
+    result.size = 1;
+    result.bytes = malloc(result.size * sizeof(uint32_t));
+    result.bytes[0] = 1;
+
+    while(k > 0){
+        if(k & 1){
+            mul_APInt(&result, &result, &store_src);
+        }
+        mul_APInt(&store_src, &store_src, &store_src);
+        k = k >> 1;
+    }
+
+    dst->size = result.size;
+    dst->bytes = malloc(dst->size * sizeof(uint32_t));
+
+    for(int i = 0; i < (int) result.size; i++){
+        dst->bytes[i] = result.bytes[i];     
+    }
+
+    if(result.size){
+        free(result.bytes);
+    }
+
+    if(store_src.size){
+        free(store_src.bytes);
+    }
+}
+
 void destroy_APInt(APInt * ap){
     //printf("APSize: %d\n", ap->size);
     if(ap->size != 0){

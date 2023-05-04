@@ -21,5 +21,5 @@ void SHL(APInt * dst, APInt * src, uint64_t k);
 void cmp(APInt * op1, APInt * op2);
 void mul_uint64(APInt * dst, APInt * src, uint64_t k);
 void mul_APInt(APInt * dest, APInt * src1, APInt * src2);
-
+void power(APInt * dst, APInt * src, uint64_t k);
 #endif
