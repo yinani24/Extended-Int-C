@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/Yash Inani/OneDrive/Desktop/Extended-Int-C/src/lib/APInt.c
+APInt.h
+/mnt/c/Users/Yash Inani/OneDrive/Desktop/Extended-Int-C/src/lib/APInt.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+
+include/APInt.h
+stdint.h
+-
+stdio.h
+-
+stdlib.h
+-
+

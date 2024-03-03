@@ -1,0 +1,1 @@
+/usr/bin/cc -fsanitize=address -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O0 -Wall -Wextra -Wpedantic -Werror   CMakeFiles/Main.dir/main.c.o  -o Main -Wl,-rpath,"/mnt/c/Users/Yash Inani/OneDrive/Desktop/Extended-Int-C/src" libAPInt.so 

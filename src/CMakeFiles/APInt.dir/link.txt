@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC -fsanitize=address -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O0 -Wall -Wextra -Wpedantic -Werror  -shared -Wl,-soname,libAPInt.so -o libAPInt.so CMakeFiles/APInt.dir/lib/APInt.c.o 
